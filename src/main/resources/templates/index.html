@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <title>Simple Apps input Data</title>
+</head>
+<body>
+    <div class="container col-6">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        <h1 th:text="${headerString}" class="fa fa-user-plus"></h1>
+    </div>
+    <div>
+      
+        <form th:object="${searchForm}" class="container col-12" method="post" th:action="@{/search}">
+          <div class="mb-3">
+            <label class="form-label">NIK</label>
+            <input type="number" class="form-control" >
+          </div>
+            <div class="mb-3">
+              <label class="form-label">Nama</label>
+              <input type="text" class="form-control" th:field="*{keyword}" >
+            </div>
+            <br>
+            <button class="btn btn-info" type="submit">Search</button>
+            <a th:href="@{/input}" class="btn btn-primary">Tambah Data</a>
+            
+          </form>
+    </div>
+    <div class="container col-12">
+        <label>Tabel Data</label>
+        <table class="table" border="1">
+            <thead>
+              <tr class="table-primary">
+                
+                <th scope="col">NIK</th>
+                <th scope="col">Nama Lengkap</th>
+                <th scope="col">Umur</th>
+                <th scope="col">Tanggal Lahir</th>
+                <th scope="col">Jenis Kelamin</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">negara</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="information : ${informations}">
+                <td th:text="${information.nik}"></td>
+                <td th:text="${information.name}"></td>
+                <td th:text="${information.umur}"></td>
+                <td th:text="${information.tgl_lahir}"></td>
+                <td th:text="${information.jk}"></td>
+                <td th:text="${information.alamat}"></td>
+                <td th:text="${information.negara}"></td>
+                <td>
+                    <a th:href="@{'/info/'+${information.nik}}" class="btn btn-info">View</a>
+                    <a th:href="@{'/edit/'+${information.nik}}" class="btn btn-success">Edit</a>
+                    <a th:href="@{'/delete/'+${information.nik}}" class="btn btn-danger">Hapus</a>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+    
+
+    
+    
+</body>
+</html>
